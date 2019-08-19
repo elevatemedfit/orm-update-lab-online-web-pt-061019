@@ -23,7 +23,7 @@ class Student
     sql = <<-SQL
       SELECT * FROM students
       WHERE name = ?
-      LIMIT 1
+
       SQL
 
     DB[:conn].execute(sql,name).map do |row|
@@ -65,9 +65,10 @@ class Student
     DB[:conn].execute(sql, self.name, self.grade)
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
     end
-end
-def update
-  sql = "UPDATE students SET name = ?, grade = ? WHERE id = ?"
-  DB[:conn].execute(sql, self.name, self.grade, self.id)
-end
+  end
+
+  def update
+    sql = "UPDATE students SET name = ?, grade = ? WHERE id = ?"
+    DB[:conn].execute(sql, self.name, self.grade, self.id)
+  end
 end
